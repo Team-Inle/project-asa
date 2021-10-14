@@ -1,7 +1,7 @@
 // first confirm that this spike document has loaded
 console.log('spike-http.js is running')
 
-
+var XMLHttpRequest = require("XMLHttpRequest").XMLHttpRequest;
 
 
 // this is a URL to a website that is used to check if HTTP requests have been made successfully
@@ -32,7 +32,7 @@ const PARAM = `{
 
 
 
-// Spike 1: Traditional Asynchronous HTTP request (non-RESTful, ie, SOAP "simple object access protocol")
+// Spike 1: Traditional Asynchronous HTTP request (non-RESTful)
 var AsyncHttpClient = function() {
 
     // create function for a get request (send data)
@@ -51,26 +51,29 @@ var AsyncHttpClient = function() {
         request.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
 
-            // check state and status
-            console.log('A message from CS361')
-            console.log(request.responseText)
+                // check state and status
+                console.log(request.responseText)
+                providedCallback(request.responseText);
+
             }
         };
 
     }
 
-    // create function for a post request (receive data)
-    this.get = function(providedURL, providedCallback) {
+    // // create function for a post request (receive data)
+    // this.post = function(providedURL, providedCallback) {
 
-        // this creates a new XMLHttpRequest object that will be used to send the request to the browser
-        const request = new XMLHttpRequest();
+    //     // this creates a new XMLHttpRequest object that will be used to send the request to the browser
+    //     const request = new XMLHttpRequest();
 
-    }
+    // }
 }
 
 // Spike 1: Testing a HTTP GET request (ie, sending text)
 var newAsyncHttpClient = new AsyncHttpClient();
-newAsyncHttpClient.get(providedURL: URL, providedCallback: function(response));
+newAsyncHttpClient.get(URL, function(response) {
+    console.log(response);
+});
 
 
 
@@ -79,23 +82,24 @@ newAsyncHttpClient.get(providedURL: URL, providedCallback: function(response));
 
 
 
-// Spike 1: Testing a HTTP POST request (ie, receiving text)
 
-// using the request object, we wil open the provided URL using POST HTTP protocol
-request.open('POST', url);
+// // Spike 1: Testing a HTTP POST request (ie, receiving text)
 
-// that that we have set up the request, send it
-request.setRequestHeader('Content-Type', 'text/xml');
-request.send(param)
+// // using the request object, we wil open the provided URL using POST HTTP protocol
+// request.open('POST', url);
 
-// once the ready state has changed, check the new ready state and see what the result of the request is
-request.onreadystatechange = function() {
+// // that that we have set up the request, send it
+// request.setRequestHeader('Content-Type', 'text/xml');
+// request.send(param)
 
-    // check stat and status
-    if (this.readyState == 4 && this.status == 200) {
+// // once the ready state has changed, check the new ready state and see what the result of the request is
+// request.onreadystatechange = function() {
 
-       // Typical action to be performed when the document is ready:
-       console.log(readyState)
-       console.log(request.responseText)
-    }
-};
+//     // check stat and status
+//     if (this.readyState == 4 && this.status == 200) {
+
+//        // Typical action to be performed when the document is ready:
+//        console.log(readyState)
+//        console.log(request.responseText)
+//     }
+// };
