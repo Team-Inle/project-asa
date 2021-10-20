@@ -1,4 +1,9 @@
 
+import './components/Navbar.css';
+
+import "./components/YoutubeEmbed.css";
+import YoutubeEmbed from "./components/YoutubeEmbed";
+
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -7,7 +12,9 @@ function App() {
   return (
     <Router>
         <Navbar />
+        <YoutubeEmbed embedId="rokGy0huYEA" />
         <div className="App">
+        
               <header className="App-header">
               <h1>
                   Search for a song, we'll do the rest!
@@ -24,6 +31,8 @@ function App() {
                 >
                   Learn React
                 </a>
+
+                
               </header>
             </div>
     </Router>
