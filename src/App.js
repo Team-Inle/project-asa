@@ -7,11 +7,16 @@ import YoutubeEmbed from "./components/YoutubeEmbed";
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import AutoGrid from './components/MainGrid';
+
+
+import { StyledEngineProvider } from '@mui/material/styles';
 
 function App() {
   return (
     <Router>
         <Navbar />
+        <AutoGrid/>       
         <YoutubeEmbed embedId="rokGy0huYEA" />
         <div className="App">
         
