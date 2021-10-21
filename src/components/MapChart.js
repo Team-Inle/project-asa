@@ -19,11 +19,11 @@ const colorScale = scaleLinear()
 const MapChart = () => {
   const [data, setData] = useState([]);
 
-  // useEffect(() => {
-  //   csv(`/vulnerability.csv`).then((data) => {
-  //     setData(data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    csv(`/vulnerability.csv`).then((data) => {
+      setData(data);
+    });
+  }, []);
 
   return (
     <ComposableMap
