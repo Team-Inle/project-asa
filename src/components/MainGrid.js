@@ -5,6 +5,14 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
+import Collapsible from 'react-collapsible';
+import "./Collapsible.css"
+
+
+import MapChart from "./MapChart";
+
+import "./MapChart.css"
+
 import { styled } from '@mui/material/styles';
 const message = `Truncation should be conditionally applicable on this long line of text
  as this is a much longer line than what the container can support. `;
@@ -23,16 +31,39 @@ export default function AutoGridNoWrap() {
 
 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
   <Grid item xs={6}>
-    <Item>1</Item>
+    <Item>
+    <Collapsible open="true" trigger="Music Video">
+      Test Text
+    </Collapsible>
+    </Item>
   </Grid>
   <Grid item xs={6}>
-    <Item>2</Item>
+    <Item>
+    <Collapsible open="true" trigger="Artist Description">
+      <Typography>{message}</Typography>
+    </Collapsible>
+    </Item>
   </Grid>
   <Grid item xs={6}>
-    <Item>3</Item>
+    <Item>
+    <Collapsible open="true" trigger="Music Video">
+      <Typography>{message}</Typography>
+    </Collapsible>
+    </Item>
   </Grid>
   <Grid item xs={6}>
-    <Item>4</Item>
+    <Item>
+    <Collapsible open="true" trigger="Track Availability (Spotify)">
+    <MapChart/>
+    </Collapsible>
+    </Item>
+  </Grid>
+  <Grid item xs={6}>
+    <Item>
+    <Collapsible open="true" trigger="Music Video Availability (Youtube)">
+    <MapChart/>
+    </Collapsible>
+    </Item>
   </Grid>
 </Grid>
 
