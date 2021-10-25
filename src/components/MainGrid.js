@@ -8,6 +8,8 @@ import Collapsible from 'react-collapsible';
 import "./Collapsible.css"
 
 
+import YoutubeEmbed from "./YoutubeEmbed";
+
 import MapChart from "./MapChart";
 
 import * as lyric_data from "../data/sample_lyrics.json"
@@ -65,9 +67,18 @@ export default function AutoGridNoWrap() {
   <Grid item xs={5}>
     <Item>
     <Collapsible open="true" trigger="Music Video">
-      Test Text
+      <YoutubeEmbed embedId="dQw4w9WgXcQ" />
     </Collapsible>
     </Item>
+
+    <Item>
+    <Collapsible open="true" trigger="Track (Spotify)">
+      
+    <iframe src="https://open.spotify.com/embed/track/4cOdK2wGLETKBW3PvgPWqT" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+    </Collapsible>
+    </Item>
+    
 
     <Item>
     <Collapsible open="true" trigger="Track Availability (Spotify)">
