@@ -38,6 +38,8 @@ const { Search } = Input;
 
 const App = () => {
 
+  
+
   const spotify = Credentials();  
 
   console.log('RENDERING APP.JS');
@@ -289,6 +291,7 @@ const App = () => {
 
             
     </Router> 
+    
     
     
   );
