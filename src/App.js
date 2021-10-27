@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { Card } from 'react-bootstrap';
+
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { Credentials } from './components/Credentials';
 import axios from 'axios';
@@ -31,6 +33,9 @@ import "./components/YoutubeEmbed.css";
 import { Input, List, Avatar } from 'antd';
 const { Search } = Input;
 
+
+
+
 const App = () => {
 
   const spotify = Credentials();  
@@ -43,8 +48,32 @@ const App = () => {
     {value: 3, name: 'C'},
   ]; 
 
-  const [searchParam, updateSearchParam] = useState({currentSearchParam: ''});
+  
+  
 
+  function NewSearch(){
+    const [searchParam, setSearchParam] = useState();
+
+    function updateSearchParam(e){
+      setSearchParam(e.target.value);
+    }
+
+    return(
+      
+      <Card style={{ width: '18rem' }}>
+      <Card.Img variant="top"  />
+      <Card.Body>
+        <Card.Text>
+                  <label>searchParam</label> <input type="text" name="currentSearchParam" value={searchParam} onChange={updateSearchParam}></input>
+                  
+                  <p>searchParam is {searchParam}</p>         
+        </Card.Text>
+      </Card.Body>
+    </Card>
+    )
+  }
+
+  
 
   const [trackData, setTrackData] = useState({trackID:'', trackArtist:'', trackTitle:'', artistDescription:''});
 
@@ -181,6 +210,11 @@ const App = () => {
 
           <Route exact path="/">
           <div className="container">
+
+         
+    <NewSearch/>
+        
+
 <form onSubmit={searchRequested}>
   {/* <SearchBar label="Search" searchValue={searchValue} changed={searchValue} />        */}
     {/* <Dropdown label="Genre :" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} /> */}
