@@ -4,7 +4,8 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-
+import { Credentials } from './Credentials';
+import axios from 'axios';
 import { useParams} from "react-router-dom";
 
 import Collapsible from 'react-collapsible';
@@ -54,23 +55,80 @@ export default function AutoGridNoWrap() {
 
   let {id} = useParams();
 
-
-
   console.log(id);
 
   const spotifyEmbedURL = `https://open.spotify.com/embed/track/${id}`;
 
-  const [trackData, setTrackData] = useState({trackID:'', trackArtist:'', trackTitle:'', artistDescription:''});
+  const spotify = Credentials(); 
+
+  const [token, setToken] = useState(''); 
+
+  const [trackData, setTrackData] = useState({trackID:id, trackArtist:'', trackTitle:'', artistDescription:''});
+   
+  // reauthenticate
+  useEffect(() => {
+
+    axios('https://accounts.spotify.com/api/token', {
+      headers: {
+        'Content-Type' : 'application/x-www-form-urlencoded',
+        'Authorization' : 'Basic ' + btoa(spotify.ClientId + ':' + spotify.ClientSecret)      
+      },
+      data: 'grant_type=client_credentials',
+      method: 'POST'
+    })
+    .then(tokenResponse => {      
+      setToken(tokenResponse.data.access_token);
+
+      axios(`https://api.spotify.com/v1/tracks/${id}`, {
+        method: 'GET',
+        headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
+      })
+      .then(tracksResponse => {
+        // console.log(tracksResponse.data);
+
+        console.log(tracksResponse.data.artists[0].name);
+        console.log(tracksResponse.data.name);
+        console.log(tracksResponse.data.available_markets);
+        setTrackData({...trackData,
+          trackArtist: tracksResponse.data.artists[0].name,
+          trackTitle: tracksResponse.data.name,
+          trackDistribution: tracksResponse.data.available_markets
+        })
+      });
+      
+    });
+
+  }, [spotify.ClientId, spotify.ClientSecret]); 
+  
+
+
+  // need to obtain the trackArtist, trackTitle from Spotify
+  // function getTrackDetails (){
+  //   axios(`https://api.spotify.com/v1/tracks/${id}`, {
+  //     method: 'GET',
+  //     headers: { 'Authorization' : 'Bearer ' + token}
+  //   })
+  //   .then(trackResponse => {
+  //     setTrackData({
+  //       selectedPlaylist: playlist.selectedPlaylist,
+  //       listOfPlaylistFromAPI: playlistResponse.data.playlists.items
+  //     })
+  //   });
+  // }
 
   function changeTrackData(e){
     console.log(e);
     setTrackData({...trackData,[e.target.name]:e.target.value})
   }
 
+  // getTrackDetails();
+
   return (
 
+    
+
     <div>
-      <Item>
+      {/* <Item>
         <label>TrackID</label> <input type="text" name="trackID" value={trackData.trackID} onChange={changeTrackData}></input>
         <label>Artist</label> <input type="text" name="trackArtist" value={trackData.trackArtist} onChange={changeTrackData}></input>
         <label>TrackTitle</label> <input type="text" name="trackTitle" value={trackData.trackTitle} onChange={changeTrackData}></input>
@@ -84,18 +142,18 @@ export default function AutoGridNoWrap() {
           Artist Description is {trackData.artistDescription}
           </p>
     
-          </Item>
+          </Item> */}
 
     <Box sx={{ flexGrow: 1, overflow: 'hidden', px: 3 }}>
 
 <Item>
     <b> 
-    {artist_name}
+    {trackData.trackArtist}
     </b>
 
   
     <p> 
-    {song_title}
+    {trackData.trackTitle}
     </p>
 
     </Item>
