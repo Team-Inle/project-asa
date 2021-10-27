@@ -8,7 +8,7 @@ const Listbox = props => {
     const clicked = e => {
         e.preventDefault();
         props.clicked(e.target.id);
-        let path = `results`; 
+        let path = `results/${e.target.id}`; 
         history.push(path);
     }    
 

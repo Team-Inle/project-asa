@@ -4,6 +4,11 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
+
+import {
+  useParams
+} from "react-router-dom";
+
 import Collapsible from 'react-collapsible';
 import "./Collapsible.css"
 
@@ -46,6 +51,12 @@ By the time of his brief retirement, Astley had sold approximately 40 million re
   }));
 
 export default function AutoGridNoWrap() {
+
+  let {id} = useParams();
+
+
+
+  console.log(id);
 
   const [trackData, setTrackData] = useState({trackID:'', trackArtist:'', trackTitle:'', artistDescription:''});
 
