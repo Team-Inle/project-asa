@@ -4,6 +4,15 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
+
+import "bootstrap/dist/css/bootstrap.css";
+import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+
+
+import ReactTooltip from "react-tooltip";
+
 import { Credentials } from './Credentials';
 import axios from 'axios';
 import { useParams} from "react-router-dom";
@@ -52,6 +61,14 @@ By the time of his brief retirement, Astley had sold approximately 40 million re
   }));
 
 export default function AutoGridNoWrap() {
+
+  const renderMusicVideoTooltip = props => (
+    <Tooltip {...props}>Click to collapse/expand music video</Tooltip>
+  );
+
+  const renderSpotifyEmebedTooltip = props => (
+    <Tooltip {...props}>Click to collapse/expand Spotify track player</Tooltip>
+  );
 
   let {id} = useParams();
 
@@ -160,12 +177,19 @@ export default function AutoGridNoWrap() {
 
 <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
   <Grid item xs={5}>
-    <Item>
-    <Collapsible open="true" trigger="Music Video">
-      <YoutubeEmbed embedId="dQw4w9WgXcQ" />
-    </Collapsible>
-    </Item>
 
+
+    <OverlayTrigger placement="top" overlay={renderMusicVideoTooltip}>
+              <Item>
+                <Collapsible open="true" trigger="Music Video" data-tip data-for="musicVideoCollapse">
+            <YoutubeEmbed embedId="dQw4w9WgXcQ" />
+          </Collapsible>
+          </Item>
+      </OverlayTrigger>
+
+    
+      <OverlayTrigger placement="top" overlay={renderSpotifyEmebedTooltip}>
+              
     <Item>
     <Collapsible open="true" trigger="Track (Spotify)">
       
@@ -173,6 +197,9 @@ export default function AutoGridNoWrap() {
 
     </Collapsible>
     </Item>
+      </OverlayTrigger>
+
+
     
 
     <Item>
@@ -182,13 +209,13 @@ export default function AutoGridNoWrap() {
     </Item>
   </Grid>
 
-  <Grid item xs={2}>
+  {/* <Grid item xs={2}>
     <Item>
     <Collapsible open="true" trigger="Lyrics">
       <Typography><div id="lyrics_box">{song_lyrics}</div></Typography>
     </Collapsible>
     </Item>
-  </Grid>
+  </Grid> */}
 
   <Grid item xs={5}>
     <Item>

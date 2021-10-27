@@ -51,22 +51,39 @@ const App = () => {
   
   
 
-  function NewSearch(){
+  const NewSearch = props => {
+
+    const dropdownChanged = e => {
+      props.changed(e.target.value);
+
+  } 
+
+
     const [searchParam, setSearchParam] = useState();
 
     function updateSearchParam(e){
       setSearchParam(e.target.value);
+
+      // pass the search parameter to the searchParamRequeste 
+      
     }
 
     return(
       
-      <Card style={{ width: '18rem' }}>
+      <Card >
       <Card.Img variant="top"  />
       <Card.Body>
         <Card.Text>
+
+
                   <label>searchParam</label> <input type="text" name="currentSearchParam" value={searchParam} onChange={updateSearchParam}></input>
                   
-                  <p>searchParam is {searchParam}</p>         
+                  <p>searchParam is {searchParam}</p>      
+
+                    <div className="row">
+                                    <Listbox items={tracks.listOfTracksFromAPI} clicked={listboxClicked}  />
+                        {trackDetail && <Detail {...trackDetail} /> }
+                      </div>     
         </Card.Text>
       </Card.Body>
     </Card>
@@ -179,6 +196,28 @@ const App = () => {
   }
 
 
+  
+
+  
+  const searchParamRequested = e => {
+    e.preventDefault();
+
+    var searchQuery = "Never Gonna";
+
+    axios(`https://api.spotify.com/v1/search/?q=${searchQuery}&type=track&limit=10`, {
+      method: 'GET',
+      headers: {
+        'Authorization' : 'Bearer ' + token
+      }
+    })
+    .then(tracksResponse => {
+      setTracks({
+        listOfTracksFromAPI: tracksResponse.data.tracks.items
+      })
+    });
+  }
+
+
   const listboxClicked = val => {
 
     const currentTracks = [...tracks.listOfTracksFromAPI];
@@ -212,7 +251,7 @@ const App = () => {
           <div className="container">
 
          
-    <NewSearch/>
+    {/* <NewSearch/> */}
         
 
 <form onSubmit={searchRequested}>
