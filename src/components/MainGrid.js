@@ -5,9 +5,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 
-import {
-  useParams
-} from "react-router-dom";
+import { useParams} from "react-router-dom";
 
 import Collapsible from 'react-collapsible';
 import "./Collapsible.css"
@@ -15,6 +13,8 @@ import "./Collapsible.css"
 import { useState, useEffect } from 'react';
 
 import YoutubeEmbed from "./YoutubeEmbed";
+
+import SpotifyEmbed from './SpotifyEmbed';
 
 import MapChart from "./MapChart";
 
@@ -57,6 +57,8 @@ export default function AutoGridNoWrap() {
 
 
   console.log(id);
+
+  const spotifyEmbedURL = `https://open.spotify.com/embed/track/${id}`;
 
   const [trackData, setTrackData] = useState({trackID:'', trackArtist:'', trackTitle:'', artistDescription:''});
 
@@ -109,7 +111,7 @@ export default function AutoGridNoWrap() {
     <Item>
     <Collapsible open="true" trigger="Track (Spotify)">
       
-    <iframe src="https://open.spotify.com/embed/track/4cOdK2wGLETKBW3PvgPWqT" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+      <SpotifyEmbed embedId={id}/>
 
     </Collapsible>
     </Item>
