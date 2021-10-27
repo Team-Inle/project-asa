@@ -45,11 +45,15 @@ const App = () => {
 
   const [searchParam, updateSearchParam] = useState({currentSearchParam: ''});
 
+
+  const [trackData, setTrackData] = useState({trackID:'', trackArtist:'', trackTitle:'', artistDescription:''});
+
   const [token, setToken] = useState('');  
   const [genres, setGenres] = useState({selectedGenre: '', listOfGenresFromAPI: []});
   const [playlist, setPlaylist] = useState({selectedPlaylist: '', listOfPlaylistFromAPI: []});
   const [tracks, setTracks] = useState({selectedTrack: '', listOfTracksFromAPI: []});
   const [trackDetail, setTrackDetail] = useState(null);
+
 
   useEffect(() => {
 
@@ -150,10 +154,15 @@ const App = () => {
 
     const currentTracks = [...tracks.listOfTracksFromAPI];
 
-    const trackInfo = currentTracks.filter(t => t.track.id === val);
+    const trackInfo = currentTracks.filter(t => t.id === val);
 
-    setTrackDetail(trackInfo[0].track);
+    console.log(trackInfo);
 
+    console.log(trackInfo[0].id);
+
+    setTrackData(trackInfo[0].id);
+    
+    setTrackData({...trackData,trackID:trackInfo[0].id})
 
 
   }
@@ -191,7 +200,7 @@ const App = () => {
       </button>
     </div>
     <div className="row">
-                  <Listbox items={tracks.listOfTracksFromAPI} clicked={listboxClicked} />
+                  <Listbox items={tracks.listOfTracksFromAPI} clicked={listboxClicked}  />
       {trackDetail && <Detail {...trackDetail} /> }
     </div>        
 </form>

@@ -1,10 +1,15 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 
 const Listbox = props => {
+
+    const history = useHistory();
 
     const clicked = e => {
         e.preventDefault();
         props.clicked(e.target.id);
+        let path = `results`; 
+        history.push(path);
     }    
 
     return (

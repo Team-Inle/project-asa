@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Collapsible from 'react-collapsible';
 import "./Collapsible.css"
 
+import { useState, useEffect } from 'react';
 
 import YoutubeEmbed from "./YoutubeEmbed";
 
@@ -45,7 +46,33 @@ By the time of his brief retirement, Astley had sold approximately 40 million re
   }));
 
 export default function AutoGridNoWrap() {
+
+  const [trackData, setTrackData] = useState({trackID:'', trackArtist:'', trackTitle:'', artistDescription:''});
+
+  function changeTrackData(e){
+    console.log(e);
+    setTrackData({...trackData,[e.target.name]:e.target.value})
+  }
+
   return (
+
+    <div>
+      <Item>
+        <label>TrackID</label> <input type="text" name="trackID" value={trackData.trackID} onChange={changeTrackData}></input>
+        <label>Artist</label> <input type="text" name="trackArtist" value={trackData.trackArtist} onChange={changeTrackData}></input>
+        <label>TrackTitle</label> <input type="text" name="trackTitle" value={trackData.trackTitle} onChange={changeTrackData}></input>
+        <label>ArtistDescription</label> <input type="text" name="artistDescription" value={trackData.artistDescription} onChange={changeTrackData}></input>
+
+
+        <p>
+          ID is {trackData.trackID}
+          Artist Name is {trackData.trackArtist}
+          Track Title is {trackData.trackTitle}
+          Artist Description is {trackData.artistDescription}
+          </p>
+    
+          </Item>
+
     <Box sx={{ flexGrow: 1, overflow: 'hidden', px: 3 }}>
 
 <Item>
@@ -106,13 +133,6 @@ export default function AutoGridNoWrap() {
     </Item>
   </Grid>
   
-  {/* <Grid item xs={6}>
-    <Item>
-    <Collapsible open="true" trigger="Music Video">
-      <Typography>{message}</Typography>
-    </Collapsible>
-    </Item>
-  </Grid> */}
   <Grid item xs={6}>
     
   </Grid>
@@ -120,34 +140,11 @@ export default function AutoGridNoWrap() {
     
   </Grid>
 </Grid>
-{/* 
-      <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 2 }}>
-        <Grid container wrap="nowrap" spacing={2}>
-          <Grid item>
-            <Avatar>Y</Avatar>
-          </Grid>
-          <Grid item xs zeroMinWidth>
-            <Typography noWrap>{message}</Typography>
-          </Grid>
-        </Grid>
-      </Paper>
-      
-      <Paper sx={{ maxWidth: 400, my: 1, mx: 'auto', p: 2 }}>
-        <Grid container wrap="nowrap" spacing={2}>
-          <Grid item>
-            <Avatar>S</Avatar>
-          </Grid>
-          <Grid item xs>
-            <Typography>{message}</Typography>
-          </Grid>
-        </Grid>
-      </Paper> */}
-
     </Box>
 
 
 
-
+    </div>
     
   );
 }
