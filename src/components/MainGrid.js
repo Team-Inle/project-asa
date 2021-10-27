@@ -58,9 +58,6 @@ export default function AutoGridNoWrap() {
     {song_title}
     </p>
 
-    <Collapsible open="true" trigger="Music Video">
-      Test Text
-    </Collapsible>
     </Item>
 
 <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
