@@ -70,6 +70,21 @@ export default function AutoGridNoWrap() {
     <Tooltip {...props}>Click to collapse/expand Spotify track player</Tooltip>
   );
 
+
+
+  const renderTrackAvailabilityTooltip = props => (
+    <Tooltip {...props}>Click to collapse/expand track availability</Tooltip>
+  );
+  const renderSongLyricsTooltip = props => (
+    <Tooltip {...props}>Click to collapse/expand song lyrics</Tooltip>
+  );
+const renderMusicVideoAvailabilityTooltip = props => (
+  <Tooltip {...props}>Click to collapse/expand music video availability</Tooltip>
+);
+const renderArtistDescriptionTooltip = props => (
+  <Tooltip {...props}>Click to collapse/expand artist description</Tooltip>
+);
+
   let {id} = useParams();
 
   console.log(id);
@@ -200,35 +215,46 @@ export default function AutoGridNoWrap() {
       </OverlayTrigger>
 
 
-    
-
+      <OverlayTrigger placement="top" overlay={renderTrackAvailabilityTooltip}>
     <Item>
     <Collapsible open="true" trigger="Track Availability (Spotify)">
     <MapChart/>
     </Collapsible>
     </Item>
+  </OverlayTrigger>
+
   </Grid>
 
-  {/* <Grid item xs={2}>
+  
+  <OverlayTrigger placement="top" overlay={renderSongLyricsTooltip}>
+  <Grid item xs={2}>
     <Item>
     <Collapsible open="true" trigger="Lyrics">
       <Typography><div id="lyrics_box">{song_lyrics}</div></Typography>
     </Collapsible>
     </Item>
-  </Grid> */}
+  </Grid>
+  </OverlayTrigger>
 
   <Grid item xs={5}>
+
+
+  <OverlayTrigger placement="top" overlay={renderArtistDescriptionTooltip}>
     <Item>
     <Collapsible open="true" trigger="Artist Description">
       <Typography>{artist_description}</Typography>
     </Collapsible>
     </Item>
+    </OverlayTrigger>
 
+    <OverlayTrigger placement="top" overlay={renderMusicVideoAvailabilityTooltip}>
     <Item>
     <Collapsible open="true" trigger="Music Video Availability (Youtube)">
     <MapChart/>
     </Collapsible>
     </Item>
+
+    </OverlayTrigger>
   </Grid>
   
   <Grid item xs={6}>
