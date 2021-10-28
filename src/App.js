@@ -18,6 +18,7 @@ import AutoGrid from './components/MainGrid';
 // import HomeSearchBar from './components/HomeSearchBar';
 
 
+import 'antd/dist/antd.css';
 
 import Dropdown from './components/Dropdown';
 import Listbox from './components/Listbox';
@@ -281,16 +282,16 @@ const App = () => {
   {/* <SearchBar label="Search" searchValue={searchValue} changed={searchValue} />        */}
     {/* <Dropdown label="Genre :" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} /> */}
     {/* <Dropdown label="Playlist :" options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} /> */}
-    <Search
-      placeholder="input search text"
-      enterButton="Search"
+    <Input
+      placeholder="Search for a track name, we'll do the rest!"
+      // enterButton="Search"
       size="large"
       onChange={value => this.getSearchResults(value.target.value)}
       // onChange={searchParamChanged}
       onChange={value => console.log(value.target.value)}
       onSearch={value => console.log(value)}
     />
-    <div className="col-sm-6 row form-group px-0">
+    <div className="col-sm-12 row form-group px-0 pl-3">
       <button type='submit' className="btn btn-success col-sm-12">
         Search
       </button>
@@ -300,6 +301,7 @@ const App = () => {
       {trackDetail && <Detail {...trackDetail} /> }
     </div>        
 </form>
+
 </div>
 
            </Route>

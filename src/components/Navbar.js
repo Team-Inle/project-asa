@@ -70,6 +70,7 @@ const renderSettingsTooltip = props => (
               <MdStream className='navbar-icon' />
               Tunescout
             </Link>
+            The only music search app you'll ever need
             <div className='menu-icon' onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}
             </div>
@@ -87,7 +88,44 @@ const renderSettingsTooltip = props => (
         <Modal.Header>
           <Modal.Title>Advanced Settings</Modal.Title>
         </Modal.Header>
-        <Modal.Body>The body</Modal.Body>
+        <Modal.Body>
+          Allow collapsed components:
+  <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheck1"/>
+  <label class="form-check-label" for="flexCheck1">
+    Spotify Embed
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheck2"/>
+  <label class="form-check-label" for="flexCheck2">
+    Youtube Video Embed
+  </label>
+  </div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheck3"/>
+  <label class="form-check-label" for="flexCheck3">
+    Spotify Track Availability Map
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheck4"/>
+  <label class="form-check-label" for="flexCheck4">
+    Youtube Video Availability Map
+  </label>
+  </div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheck5"/>
+  <label class="form-check-label" for="flexCheck5">
+    Lyrics
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheck6"/>
+  <label class="form-check-label" for="flexCheck6">
+    Artist Description
+  </label>
+</div></Modal.Body>
         <Modal.Footer>
           <button onClick={hideModal}>Cancel</button>
           <button>Save</button>
