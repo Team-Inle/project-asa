@@ -74,25 +74,35 @@ By the time of his brief retirement, Astley had sold approximately 40 million re
 
 export default function AutoGridNoWrap() {
 
-  var artist_description_ms = "";
+  
+
+  // var artist_description_ms = "";
+
+ 
+
+// var config = {
+//   method: 'get',
+//   url: 'https://kristina-micro.herokuapp.com/Blue_Öyster_Cult',
+//   headers: { }
+// };
 
 
 
-var config = {
-  method: 'get',
-  url: 'https://kristina-micro.herokuapp.com/Blue_Öyster_Cult',
-  headers: { }
-};
+//       axios(config)
+// .then(function (response) {
+//   // console.log(response.data.About);
+//   let artist_description_ms = response.data.About;
 
-axios(config)
-.then(function (response) {
-  console.log(JSON.stringify(response.data.About));
-  artist_description_ms = JSON.stringify(response.data.About);
+// })
+  
 
-})
-.catch(function (error) {
-  console.log(error);
-});
+  
+
+  // Blue_Öyster_Cult
+
+// .catch(function (error) {
+//   console.log(error);
+// });
 
   const renderMusicVideoTooltip = props => (
     <Tooltip {...props}>Click to collapse/expand music video</Tooltip>
@@ -166,6 +176,8 @@ const renderArtistDescriptionTooltip = props => (
   
 
 
+
+
   // need to obtain the trackArtist, trackTitle from Spotify
   // function getTrackDetails (){
   //   axios(`https://api.spotify.com/v1/tracks/${id}`, {
@@ -186,6 +198,37 @@ const renderArtistDescriptionTooltip = props => (
   }
 
   // getTrackDetails();
+
+  const [artistDescriptionMS, getArtistDescriptionMS] = useState('');
+
+  // var artist_description_ms = '';
+
+  useEffect(()=> {
+    getAllArtistDescriptionMS(trackData.trackArtist);
+  },  []);
+
+
+  const getAllArtistDescriptionMS = (currentArtistName) => {
+
+    let current_url = 'https://kristina-micro.herokuapp.com/' + currentArtistName;
+    console.log('Connecting to microservice at ', current_url);
+    axios.get(current_url)
+    .then((response)=> {
+      const allArtistDescriptionMS = response.data.About;
+      getArtistDescriptionMS(allArtistDescriptionMS);
+    })
+    .catch(error => console.error('Error', error));
+  }
+
+  // Blue_Öyster_Cult
+
+
+
+  
+
+  // console.log(artist_description_ms);
+
+  // console.log(typeof(artist_description_ms));
 
   return (
 
@@ -274,7 +317,7 @@ const renderArtistDescriptionTooltip = props => (
   <OverlayTrigger placement="top" overlay={renderArtistDescriptionTooltip}>
     <Item>
     <Collapsible open="true" trigger="Artist Description">
-      <Typography>{artist_description_ms}</Typography>
+      <Typography>{artistDescriptionMS}</Typography>
     </Collapsible>
     </Item>
     </OverlayTrigger>
