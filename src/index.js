@@ -7,10 +7,34 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// var cors = require('cors');
+
+const axios = require('axios');
+
+var artist_description_ms = '';
+
+var config = {
+  method: 'get',
+  url: 'https://kristina-micro.herokuapp.com/Blue_Öyster_Cult',
+  headers: { }
+};
+
+axios(config)
+.then(function (response) {
+  console.log(response.data.About);
+  artist_description_ms = JSON.stringify(response.data.About);
+
+})
+.catch(function (error) {
+  console.log(error);
+});
+
+
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    {artist_description_ms}
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -4,6 +4,8 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
+import axios from "axios";
+
 
 import "bootstrap/dist/css/bootstrap.css";
 import Button from "react-bootstrap/Button";
@@ -14,7 +16,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import ReactTooltip from "react-tooltip";
 
 import { Credentials } from './Credentials';
-import axios from 'axios';
+// import axios from 'axios';
 import { useParams} from "react-router-dom";
 
 import Collapsible from 'react-collapsible';
@@ -53,6 +55,16 @@ Astley became an Internet phenomenon in 2007 when the music video for his song "
 By the time of his brief retirement, Astley had sold approximately 40 million records worldwide. A year after the Rickrolling meme began, Astley was voted "Best Act Ever" by Internet users at the MTV Europe Music Awards 2008. His song "Never Gonna Give You Up" reached 1 billion views in July 2021, becoming the fourth 1980s song to reach this milestone (behind "Billie Jean" by Michael Jackson, "Take On Me" by A-ha and "Sweet Child o' Mine" by Guns N' Roses).`;
 
 
+
+
+
+
+
+
+
+
+
+
  const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -61,6 +73,26 @@ By the time of his brief retirement, Astley had sold approximately 40 million re
   }));
 
 export default function AutoGridNoWrap() {
+
+  var artist_description_ms = "";
+
+
+
+var config = {
+  method: 'get',
+  url: 'https://kristina-micro.herokuapp.com/Blue_Öyster_Cult',
+  headers: { }
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data.About));
+  artist_description_ms = JSON.stringify(response.data.About);
+
+})
+.catch(function (error) {
+  console.log(error);
+});
 
   const renderMusicVideoTooltip = props => (
     <Tooltip {...props}>Click to collapse/expand music video</Tooltip>
@@ -242,7 +274,7 @@ const renderArtistDescriptionTooltip = props => (
   <OverlayTrigger placement="top" overlay={renderArtistDescriptionTooltip}>
     <Item>
     <Collapsible open="true" trigger="Artist Description">
-      <Typography>{artist_description}</Typography>
+      <Typography>{artist_description_ms}</Typography>
     </Collapsible>
     </Item>
     </OverlayTrigger>
