@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import ReactDOM from 'react-dom';
-// import Modal from 'react-modal';
-
 import { Card } from 'react-bootstrap';
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Credentials } from './components/Credentials';
 import axios from 'axios';
 
@@ -20,7 +17,6 @@ import AutoGrid from './components/MainGrid';
 
 import 'antd/dist/antd.css';
 
-import Dropdown from './components/Dropdown';
 import Listbox from './components/Listbox';
 import Detail from './components/Detail';
 
@@ -35,20 +31,11 @@ import "./components/YoutubeEmbed.css";
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Input, List, Avatar } from 'antd';
+import { Input } from 'antd';
 const { Search } = Input;
 
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+
 
 // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 // Modal.setAppElement('#SettingModal');
@@ -60,13 +47,8 @@ const App = () => {
 
   const spotify = Credentials();  
 
-  console.log('RENDERING APP.JS');
+  // console.log('RENDERING APP.JS');
 
-  const data = [
-    {value: 1, name: 'A'},
-    {value: 2, name: 'B'},
-    {value: 3, name: 'C'},
-  ]; 
 
   
   

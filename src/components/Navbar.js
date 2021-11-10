@@ -1,7 +1,6 @@
 // modified from https://github.com/briancodex/react-website-v2
 
-import React, { useState, useEffect } from 'react';
-// import { Button } from './Button';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import { MdStream, MdSettings } from 'react-icons/md';
@@ -10,11 +9,6 @@ import { IconContext } from 'react-icons/lib';
 
 
 import Modal from "react-bootstrap/Modal";
-import ModalBody from "react-bootstrap/ModalBody";
-import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalFooter from "react-bootstrap/ModalFooter";
-import ModalTitle from "react-bootstrap/ModalTitle";
-
 
 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -34,18 +28,9 @@ function Navbar() {
 
 
   const [click, setClick] = useState(false);
-  const [button, setButton] = useState(true);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
-
-  const showButton = () => {
-    if (window.innerWidth <= 960) {
-      setButton(false);
-    } else {
-      setButton(true);
-    }
-  };
 
 //   useEffect(() => {
 //     showButton();

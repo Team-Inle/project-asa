@@ -1,33 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery';
-import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-// var cors = require('cors');
-
-const axios = require('axios');
-
-var artist_description_ms = '';
-
-var config = {
-  method: 'get',
-  url: 'https://kristina-micro.herokuapp.com/Rick_Astley',
-  headers: { }
-};
-
-axios(config)
-.then(function (response) {
-  // console.log(response.data.About);
-  artist_description_ms = JSON.stringify(response.data.About);
-
-})
-.catch(function (error) {
-  console.log(error);
-});
 
 
 
