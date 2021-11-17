@@ -108,6 +108,13 @@ const containerVariants = {
     }
 }
 
+const NoResultsStyle = {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+}
 
 const LoadingWrapperStyle = {
     width: "100%",
@@ -131,6 +138,9 @@ export function RevampedSearchBar(props){
 
     // check if loading
     const [isLoading, setIsLoading] = useState(false);
+
+    // check if there are no results found for a search
+    const [isNoResults, setIsNoResults] = useState(false);
 
     // need to create a reference to the value contained within the searchbar
     // by storing this, we can clear this value using the collapseContainer function
@@ -158,6 +168,8 @@ export function RevampedSearchBar(props){
     const collapseContainer = () => {
         setExpanded(false);
         setSearchQuery("");
+        setIsLoading(false);
+        setIsNoResults(false);
         if(inputRef.current)
             inputRef.current.value = "";
     }
@@ -224,8 +236,22 @@ export function RevampedSearchBar(props){
         });
 
         if (response) {
+            if (response.data.tracks.items.length === 0){
+                console.log('no results found');
+                
+                setIsNoResults(true);
+            }
+        //    if (response.data.tracks.items.length() == 0){
+        //        
+        //    } 
+        }
+
+        if (response) {
             console.log("Response: ", response.data)
         };
+
+        // after results have loaded, remove the loading icon
+        setIsLoading(false);
     }   
 
 
@@ -278,10 +304,22 @@ export function RevampedSearchBar(props){
             </div>
             <div style={searchResultStyle}>
                 
-                <div style={LoadingWrapperStyle}>
+                {/* if currently loading, show the loading icon */}
+                {isLoading &&
+                 <div style={LoadingWrapperStyle}>
                   
-                       <MoonLoader loading size={50}/>
-                </div>
+                 <MoonLoader loading size={50}/>
+          </div>
+                }
+
+                {/* if no results found, show the appropriate message */}
+                {isNoResults &&
+                 <div style={NoResultsStyle}>
+                  
+                 <p>No results found for that track name!</p>
+          </div>
+                }
+                
             </div>
         </motion.div>
     )}
