@@ -3,6 +3,8 @@ import React from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
 
+// pull this in so we can make the query to the spotify API
+import axios from "axios";
 
 // need this to expand the searchbar
 import {motion, AnimatePresence} from 'framer-motion';
@@ -15,6 +17,7 @@ import { useClickOutside } from "react-click-outside-hook";
 
 // import this for loading
 import MoonLoader from "react-spinners/MoonLoader";
+import { useDebounce } from "../../hooks/debounceHook";
 
 const SearchBarContainerStyle = {
     display: 'flex',
@@ -120,9 +123,22 @@ export function RevampedSearchBar(props){
     // this is useClickOutside
     const [parentRef, isClickedOutside] = useClickOutside();
 
+    // check if loading
+    const [isLoading, setIsLoading] = useState(false);
+
     // need to create a reference to the value contained within the searchbar
     // by storing this, we can clear this value using the collapseContainer function
     const inputRef = useRef();
+
+    // need to set the search content to the state. This starts as "" to represent no input provided
+    const [searchQuery, setSearchQuery] = useState("");
+
+    // change handler updates the query content
+    const changeHandler = (event) => {
+
+        // this grabs the value and saves it to state when the event occurs
+        event.preventDefault(event.target.value);
+    }
 
     // expand container
     const expandContainer = () => {
@@ -132,9 +148,45 @@ export function RevampedSearchBar(props){
     // collapse container
     const collapseContainer = () => {
         setExpanded(false);
+        setSearchQuery("");
         if(inputRef.current)
             inputRef.current.value = "";
     }
+
+    // prepare the url (whatever you get as a result here, clean up the result)
+    const prepareSearchQuery = (query) => {
+
+        const url = `q=${query}`;
+
+        // need to always encode so that we don't pass in bad input
+        return encodeURI(url);
+
+    }
+
+    // add core functions of search
+    const searchSpotifyTracks = async () => {
+
+        // need to grab the content of the searchbar
+        if (!searchQuery || searchQuery.trim() === "")
+            return;
+        
+        setIsLoading(true);
+
+        const URL = prepareSearchQuery(searchQuery);
+
+        const response = await axios.get(URL).catch((err) => {
+            console.log("Error:", err)
+        });
+
+        if (response) {
+            console.log("Response: ", response.data)
+        };
+    }   
+
+
+    // here we pull in the custom debounce hook
+    useDebounce(searchQuery, 500, searchSpotifyTracks);
+
 
     // add a UseEffect for useClickOutside
     useEffect(() => {
@@ -156,7 +208,11 @@ export function RevampedSearchBar(props){
                 <input 
                     style={SearchInputStyle} 
                     placeholder="Search for a track name, we'll do the rest!"
-                    ref={inputRef}/>
+                    ref={inputRef}
+
+                    // when this content changes, update the state
+                    onChange={changeHandler}
+                    />
                 <AnimatePresence>
                     {isExpanded && (
                     <motion.span 
