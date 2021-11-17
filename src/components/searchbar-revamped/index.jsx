@@ -319,7 +319,7 @@ export function RevampedSearchBar(props){
                  {trackResults.map((trackResult) => (
        
                     <SearchBarResult 
-                        thumbnailSRC={trackResult.album[2] && trackResult.album.images[2].url}
+                        thumbnailSRC={trackResult.album.images[2] && trackResult.album.images[2].url}
                         trackName={trackResult.name}
                         artistName={trackResult.artists[0].name}
                         trackID={trackResult.id}

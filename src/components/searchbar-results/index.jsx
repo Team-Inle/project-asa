@@ -43,7 +43,7 @@ export function SearchBarResult(props) {
         <div style={ThumbnailStyle}>
             <img src={thumbnailSRC} />
         </div>
-        <h3 style={TrackNameStyle}>{trackName}</h3> by <h4 style={ArtistNameStyle}>{artistName}</h4>
+        <h3 style={TrackNameStyle}><b>{trackName}</b> by {artistName}</h3>
     </div>
     );
 
