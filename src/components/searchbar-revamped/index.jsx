@@ -1,9 +1,19 @@
 import React from "react";
 
+import CloseIcon from '@mui/icons-material/Close';
+import SearchIcon from '@mui/icons-material/Search';
+
+
+// need this to expand the searchbar
+import {motion} from 'framer-motion';
+
+// need to import useState hook
+import {useState} from "react";
+
 const SearchBarContainerStyle = {
     display: 'flex',
     flexDirection: 'column',
-    width: '34em',
+    width: '100%',
     height: '3.8em',
     backgroundColor: '#fff',
     borderRadius: '6px',
@@ -34,15 +44,61 @@ const SearchInputStyle = {
     backgroundColor: 'transparent'
 }
 
+const SearchIconStyle = {
+    color: '#bebebe',
+    fontSize: '27px',
+    marginRight: '10px',
+    marginTop: '6px',
+    verticalAlign: 'middle'
+}
+
+const CloseIconStyle = {
+    color: '#bebebe',
+    fontSize: '23px',
+    marginRight: '10px',
+    verticalAlign: 'middle',
+    transition: 'all 200ms ease-in-out',
+    cursor: 'pointer',
+    hover: {color: '#dfdfdf'}
+}
+
+// define variants
+const containerVariants = {
+    expanded: {
+        height: "30.5em"
+    },
+
+    collapsed: {
+        height: "3.8em"
+    }
+}
+
 
 
  
 export function RevampedSearchBar(props){
-    return  (
-        <div style={SearchBarContainerStyle}>   
 
-            <div style={SearchInputContainerStyle}>
+    // function to handle expanded state of searchbar
+    const [isExpanded, setExpanded] = useState(false);
+
+    // expand container
+    const expandContainer = () => {
+        setExpanded(true);
+    }
+
+    // collapse container
+    const collapseContainer = () => {
+        setExpanded(false);
+    }
+
+    // core layout
+    return  (
+        <motion.div style={SearchBarContainerStyle} animate={isExpanded ? "expanded" : "collapsed"} variants={containerVariants}>   
+
+            <div style={SearchInputContainerStyle} onFocus={expandContainer}>
+                <SearchIcon style={SearchIconStyle}/>
                 <input style={SearchInputStyle} placeholder="Search for a track name, we'll do the rest!"/>
+                <CloseIcon style={CloseIconStyle}/>
             </div>
-        </div>
+        </motion.div>
     )}
