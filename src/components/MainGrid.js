@@ -16,7 +16,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 
 
 import { Credentials } from './Credentials';
-// import axios from 'axios';
+
 import { useParams} from "react-router-dom";
 
 import Collapsible from 'react-collapsible';
@@ -60,34 +60,9 @@ const song_lyrics = lyric_data.lyrics;
 export default function AutoGridNoWrap() {
 
   
-
-  // var artist_description_ms = "";
-
- 
-
-// var config = {
-//   method: 'get',
-//   url: 'https://kristina-micro.herokuapp.com/Blue_Öyster_Cult',
-//   headers: { }
-// };
-
-
-
-//       axios(config)
-// .then(function (response) {
-//   // console.log(response.data.About);
-//   let artist_description_ms = response.data.About;
-
-// })
-  
-
-  
-
   // Blue_Öyster_Cult
 
-// .catch(function (error) {
-//   console.log(error);
-// });
+
 
   const renderMusicVideoTooltip = props => (
     <Tooltip {...props}>Click to collapse/expand music video</Tooltip>
@@ -114,15 +89,16 @@ const renderArtistDescriptionTooltip = props => (
 
   let {id} = useParams();
 
-  // console.log(id);
-
   const spotifyEmbedURL = `https://open.spotify.com/embed/track/${id}`;
 
   const spotify = Credentials(); 
 
   const [token, setToken] = useState(''); 
 
-  const [trackData, setTrackData] = useState({trackID:id, trackArtist:'', trackTitle:'', artistDescription:''});
+  const [trackData, setTrackData] = useState({trackID:id, trackArtist:'', trackTitle:''});
+
+  // declare a new state variable to store the microservice artist description, which will be called ms_artist_desc and will default to ""
+  const [ms_artist_desc, set_ms_artist_desc] = useState("No artist description available.");
    
   // reauthenticate
   useEffect(() => {
@@ -163,22 +139,6 @@ const renderArtistDescriptionTooltip = props => (
   
 
 
-
-
-  // need to obtain the trackArtist, trackTitle from Spotify
-  // function getTrackDetails (){
-  //   axios(`https://api.spotify.com/v1/tracks/${id}`, {
-  //     method: 'GET',
-  //     headers: { 'Authorization' : 'Bearer ' + token}
-  //   })
-  //   .then(trackResponse => {
-  //     setTrackData({
-  //       selectedPlaylist: playlist.selectedPlaylist,
-  //       listOfPlaylistFromAPI: playlistResponse.data.playlists.items
-  //     })
-  //   });
-  // }
-
   function changeTrackData(e){
     console.log(e);
     setTrackData({...trackData,[e.target.name]:e.target.value})
@@ -204,11 +164,12 @@ const renderArtistDescriptionTooltip = props => (
 
   const getAllArtistDescriptionMS = (currentArtistName) => {
 
-    let current_url = 'https://kristina-micro.herokuapp.com/' + 'Rick Astley';
+    let current_url = 'https://kristina-micro.herokuapp.com/' + currentArtistName;
     console.log('Connecting to microservice at ', current_url);
     axios.get(current_url)
     .then((response)=> {
       const allArtistDescriptionMS = response.data.About;
+      console.log('received result from Kristina microservice:', allArtistDescriptionMS);
       getArtistDescriptionMS(allArtistDescriptionMS);
     })
     .catch(error => console.error('Error', error));
@@ -312,6 +273,8 @@ const renderArtistDescriptionTooltip = props => (
     <Item>
     <Collapsible open="true" trigger="Artist Description">
       <Typography>{artistDescriptionMS}</Typography>
+      <p>{ms_artist_desc}</p>
+      <button onClick={() => set_ms_artist_desc('updated')}>Click</button>
     </Collapsible>
     </Item>
     </OverlayTrigger>

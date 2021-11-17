@@ -10,6 +10,9 @@ import './components/Navbar.css';
 
 import "./components/YoutubeEmbed.css";
 
+
+// import RevampedSearchBar from './components/searchbar-revamped';
+
 import Navbar from './components/Navbar';
 import AutoGrid from './components/MainGrid';
 // import HomeSearchBar from './components/HomeSearchBar';
@@ -32,6 +35,7 @@ import "./components/YoutubeEmbed.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Input } from 'antd';
+import { RevampedSearchBar } from './components/searchbar-revamped';
 const { Search } = Input;
 
 
@@ -40,6 +44,28 @@ const { Search } = Input;
 // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 // Modal.setAppElement('#SettingModal');
 const App = () => {
+
+  const [constant, setDisplay] = useState(false);
+  const [options, setOptions] = useState([]);
+  const [search, setSearch] = useState("");
+   
+  useEffect(() => {
+    const tracks = [];
+    const promises = new Array(20).fill()
+    .map((v, i) => fetch (`####/ ${i+1}`));
+
+    Promise.all(promises).then(trackArray => {
+      return trackArray.map(value => 
+        value
+        .json()
+        .then((
+          {track_name, album_art, artist_name}) => 
+            tracks.push({track_name, album_art, artist_name})
+          )
+      );
+        });
+        setOptions(tracks);
+    }, []);
 
 
   
@@ -255,9 +281,9 @@ const App = () => {
 
           <Route exact path="/">
           <div className="container">
-
+            <RevampedSearchBar placeholderText="Test"/>
          
-    {/* <NewSearch/> */}
+    <NewSearch/>
         
 
 <form onSubmit={searchRequested}>
@@ -265,7 +291,7 @@ const App = () => {
     {/* <Dropdown label="Genre :" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} /> */}
     {/* <Dropdown label="Playlist :" options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} /> */}
     <Input
-      placeholder="Search for a track name, we'll do the rest!"
+      placeholder="Searches for a track name, we'll do the rest!"
       // enterButton="Search"
       size="large"
       onChange={value => this.getSearchResults(value.target.value)}
