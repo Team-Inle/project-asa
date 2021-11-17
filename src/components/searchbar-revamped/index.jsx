@@ -5,13 +5,16 @@ import SearchIcon from '@mui/icons-material/Search';
 
 
 // need this to expand the searchbar
-import {motion} from 'framer-motion';
+import {motion, AnimatePresence} from 'framer-motion';
 
 // need to import useState hook
 import {useState, useEffect, useRef} from "react";
 
 // import this to allow clicking outside the searchbar to reset the field
 import { useClickOutside } from "react-click-outside-hook";
+
+// import this for loading
+import MoonLoader from "react-spinners/MoonLoader";
 
 const SearchBarContainerStyle = {
     display: 'flex',
@@ -65,7 +68,27 @@ const CloseIconStyle = {
     hover: {color: '#dfdfdf'}
 }
 
-// define variants
+
+// line separator styling
+const lineSeparatorStyle = {
+    display: "flex",
+    minWidth: "100%",
+    minHeight: "2px",
+    backgroundColor: "#d8d8d878"
+}
+
+// now creating content boxes
+const searchResultStyle = {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    padding: "1em",
+}
+
+
+
+// define variants for when we expand the searchbar
 const containerVariants = {
     expanded: {
         height: "30.5em"
@@ -76,6 +99,14 @@ const containerVariants = {
     }
 }
 
+
+const LoadingWrapperStyle = {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+}
 
 // adjustments being made to make the searchbar transition smoother
 const containerTransition = {type: 'spring', damping: 22, stiffness: 150}
@@ -119,13 +150,37 @@ export function RevampedSearchBar(props){
         transition={containerTransition}   
         ref={parentRef}
         >
+            {/* searchbar goes here */}
             <div style={SearchInputContainerStyle} onFocus={expandContainer}>
                 <SearchIcon style={SearchIconStyle}/>
                 <input 
                     style={SearchInputStyle} 
                     placeholder="Search for a track name, we'll do the rest!"
                     ref={inputRef}/>
-                <CloseIcon style={CloseIconStyle} onClick={collapseContainer}/>
+                <AnimatePresence>
+                    {isExpanded && (
+                    <motion.span 
+                        key="close-icon" 
+                        initial={{ opacity:0 }} 
+                        animate={{ opacity:1}} 
+                        transition={{ duration:0.2}} 
+                        exit={{ opacity:0}}>
+                        <CloseIcon style={CloseIconStyle} onClick={collapseContainer}/>
+                    </motion.span>
+                    )}
+                </AnimatePresence>
+            </div>
+
+            {/* content goes here */}
+            <div style={lineSeparatorStyle}>
+
+            </div>
+            <div style={searchResultStyle}>
+                
+                <div style={LoadingWrapperStyle}>
+                  
+                       <MoonLoader loading size={50}/>
+                </div>
             </div>
         </motion.div>
     )}
