@@ -94,6 +94,7 @@ const searchResultStyle = {
     display: "flex",
     flexDirection: "column",
     padding: "1em",
+    hover: {backgroundColor:  "#d8d8d878"}
 }
 
 
@@ -101,7 +102,7 @@ const searchResultStyle = {
 // define variants for when we expand the searchbar
 const containerVariants = {
     expanded: {
-        height: "30.5em"
+        height: "65em"
     },
 
     collapsed: {
@@ -146,6 +147,9 @@ export function RevampedSearchBar(props){
     // set state var to store list of results when found
     const [trackResults, setTrackResults] = useState([]);
 
+    // use this to track if there are no results searched yet
+    const isEmpty = !trackResults || trackResults.length === 0;
+
     // need to create a reference to the value contained within the searchbar
     // by storing this, we can clear this value using the collapseContainer function
     const inputRef = useRef();
@@ -158,6 +162,9 @@ export function RevampedSearchBar(props){
 
         // this grabs the value and saves it to state when the event occurs
         event.preventDefault(event.target.value);
+
+        // when we reset the field to empty, add a note for the user
+        if ( event.target.value.trim() === "") setIsNoResults(false);
 
         // each time, we have to update the search query to the new string
         setSearchQuery(event.target.value);
@@ -174,6 +181,7 @@ export function RevampedSearchBar(props){
         setSearchQuery("");
         setIsLoading(false);
         setIsNoResults(false);
+        setTrackResults([]);
         if(inputRef.current)
             inputRef.current.value = "";
     }
@@ -267,6 +275,13 @@ export function RevampedSearchBar(props){
         if (isClickedOutside) collapseContainer();
     }, [isClickedOutside])
 
+    // print out the record clicked
+    const resultClicked = val => {
+        const trackInfo = trackResults.filter(track => track.id === val);
+
+        console.log(trackInfo);
+    }
+
     // core layout
     return  (
         <motion.div 
@@ -302,40 +317,47 @@ export function RevampedSearchBar(props){
             </div>
 
             {/* content goes here */}
-            <div style={lineSeparatorStyle}>
-
-            </div>
-            <div style={searchResultStyle}>
+            {isExpanded && <div style={lineSeparatorStyle}></div>}
+            {isExpanded && <div style={searchResultStyle}>
                 
                 {/* if currently loading, show the loading icon */}
-                {isLoading &&
+                {isLoading && !isEmpty &&
                  <div style={LoadingWrapperStyle}>
                  <MoonLoader loading size={50}/>
                 </div>
                 }
 
+                {/* if user hasn't searched for anything yet, display prompt */}
+                {!isLoading && isEmpty && !isNoResults &&
+                 <div style={NoResultsStyle}>
+                  
+                 <p>Start typing to search.</p>
+                     </div>
+                }
+
                 {/* if not currently loading and there are results, show results */}
-                {!isLoading && !isNoResults && <>
+                {!isLoading && !isNoResults && !isEmpty && <>
                  {trackResults.map((trackResult) => (
        
-                    <SearchBarResult 
+                    <SearchBarResult style={searchResultStyle}
                         thumbnailSRC={trackResult.album.images[2] && trackResult.album.images[2].url}
                         trackName={trackResult.name}
                         artistName={trackResult.artists[0].name}
                         trackID={trackResult.id}
+                        clicked={resultClicked}
                     />
 
                  ))}
                 </>}
 
                 {/* if no results found, show the appropriate message */}
-                {isNoResults &&
+                {isNoResults && isNoResults && 
                  <div style={NoResultsStyle}>
                   
                  <p>No results found for that track name!</p>
           </div>
                 }
                 
-            </div>
+            </div>}
         </motion.div>
     )}

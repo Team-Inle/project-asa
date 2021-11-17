@@ -2,10 +2,10 @@ import React from "react";
 
 const SearchBarResultStyle = {
     width: "100%",
-    height: "2em",
+    height: "6em",
     display: "flex",
     borderBottom: "1px solid #d8d8d852",
-    padding: "6px 8px"
+    padding: "6px 8px",
 }
 
 const ThumbnailStyle = {
@@ -21,14 +21,10 @@ const ThumbnailStyle = {
 const TrackNameStyle = {
     fontSize: "20px",
     color: "#000",
-    marginLeft: "10px"
+    marginLeft: "10px",
+    marginTop: "20px"
 }
 
-const ArtistNameStyle = {
-    fontSize: "18px",
-    color: "#000",
-    marginLeft: "10px"
-}
 
 export function SearchBarResult(props) {
 
