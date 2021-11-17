@@ -19,6 +19,12 @@ import { useClickOutside } from "react-click-outside-hook";
 import MoonLoader from "react-spinners/MoonLoader";
 import { useDebounce } from "../../hooks/debounceHook";
 
+// import this to obtain the credentials
+import { Credentials } from '../Credentials';
+
+// set this to access the spotify API
+const spotify = Credentials(); 
+
 const SearchBarContainerStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -138,6 +144,9 @@ export function RevampedSearchBar(props){
 
         // this grabs the value and saves it to state when the event occurs
         event.preventDefault(event.target.value);
+
+        // each time, we have to update the search query to the new string
+        setSearchQuery(event.target.value);
     }
 
     // expand container
@@ -153,10 +162,41 @@ export function RevampedSearchBar(props){
             inputRef.current.value = "";
     }
 
-    // prepare the url (whatever you get as a result here, clean up the result)
-    const prepareSearchQuery = (query) => {
+    console.log("Value: ", searchQuery);
 
-        const url = `q=${query}`;
+
+    // set state variable for Spotify token
+    const [token, setToken] = useState(''); 
+
+
+    // need a separate useEffect to obtain the token
+    useEffect(() => {
+
+        axios('https://accounts.spotify.com/api/token', {
+          headers: {
+            'Content-Type' : 'application/x-www-form-urlencoded',
+            'Authorization' : 'Basic ' + btoa(spotify.ClientId + ':' + spotify.ClientSecret)      
+          },
+          data: 'grant_type=client_credentials',
+          method: 'POST'
+        })
+        .then(tokenResponse => {      
+          setToken(tokenResponse.data.access_token);
+    
+          axios('https://api.spotify.com/v1/browse/categories?locale=sv_US', {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
+          })
+          
+        });
+    
+      }, [spotify.ClientId, spotify.ClientSecret]); 
+
+    // prepare the url (whatever you get as a result here, clean up the result)
+    const prepareSearchQuery = (searchQuery) => {
+
+        // search the tracks endpoint of spotify API
+        const url = `https://api.spotify.com/v1/search/?q=${searchQuery}&type=track&limit=10`;
 
         // need to always encode so that we don't pass in bad input
         return encodeURI(url);
@@ -170,11 +210,16 @@ export function RevampedSearchBar(props){
         if (!searchQuery || searchQuery.trim() === "")
             return;
         
+        console.log('running searchSpotifyTracks');
         setIsLoading(true);
 
         const URL = prepareSearchQuery(searchQuery);
 
-        const response = await axios.get(URL).catch((err) => {
+        const response = await axios.get(URL, {
+            headers: {
+                'Authorization' : 'Bearer ' + token
+            }
+        }).catch((err) => {
             console.log("Error:", err)
         });
 
@@ -209,7 +254,7 @@ export function RevampedSearchBar(props){
                     style={SearchInputStyle} 
                     placeholder="Search for a track name, we'll do the rest!"
                     ref={inputRef}
-
+                    value={searchQuery}
                     // when this content changes, update the state
                     onChange={changeHandler}
                     />
