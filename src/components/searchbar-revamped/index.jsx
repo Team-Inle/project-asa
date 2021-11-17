@@ -21,6 +21,7 @@ import { useDebounce } from "../../hooks/debounceHook";
 
 // import this to obtain the credentials
 import { Credentials } from '../Credentials';
+import { SearchBarResult } from "../searchbar-results";
 
 // set this to access the spotify API
 const spotify = Credentials(); 
@@ -142,6 +143,9 @@ export function RevampedSearchBar(props){
     // check if there are no results found for a search
     const [isNoResults, setIsNoResults] = useState(false);
 
+    // set state var to store list of results when found
+    const [trackResults, setTrackResults] = useState([]);
+
     // need to create a reference to the value contained within the searchbar
     // by storing this, we can clear this value using the collapseContainer function
     const inputRef = useRef();
@@ -219,8 +223,7 @@ export function RevampedSearchBar(props){
     const searchSpotifyTracks = async () => {
 
         // need to grab the content of the searchbar
-        if (!searchQuery || searchQuery.trim() === "")
-            return;
+        if (!searchQuery || searchQuery.trim() === "") return ;
         
         console.log('running searchSpotifyTracks');
         setIsLoading(true);
@@ -235,15 +238,15 @@ export function RevampedSearchBar(props){
             console.log("Error:", err)
         });
 
+        // if there is a response, check to see if there are no results
         if (response) {
-            if (response.data.tracks.items.length === 0){
-                console.log('no results found');
+            if (response.data.tracks.items.length === 0){ 
                 
+                // in this case, display the no results note to the user
                 setIsNoResults(true);
+            } else {
+                setTrackResults(response.data.tracks.items);
             }
-        //    if (response.data.tracks.items.length() == 0){
-        //        
-        //    } 
         }
 
         if (response) {
@@ -307,10 +310,23 @@ export function RevampedSearchBar(props){
                 {/* if currently loading, show the loading icon */}
                 {isLoading &&
                  <div style={LoadingWrapperStyle}>
-                  
                  <MoonLoader loading size={50}/>
-          </div>
+                </div>
                 }
+
+                {/* if not currently loading and there are results, show results */}
+                {!isLoading && !isNoResults && <>
+                 {trackResults.map((trackResult) => (
+       
+                    <SearchBarResult 
+                        thumbnailSRC={trackResult.album[2] && trackResult.album.images[2].url}
+                        trackName={trackResult.name}
+                        artistName={trackResult.artists[0].name}
+                        trackID={trackResult.id}
+                    />
+
+                 ))}
+                </>}
 
                 {/* if no results found, show the appropriate message */}
                 {isNoResults &&
