@@ -8,7 +8,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import {motion} from 'framer-motion';
 
 // need to import useState hook
-import {useState} from "react";
+import {useState, useEffect, useRef} from "react";
+
+// import this to allow clicking outside the searchbar to reset the field
+import { useClickOutside } from "react-click-outside-hook";
 
 const SearchBarContainerStyle = {
     display: 'flex',
@@ -74,12 +77,21 @@ const containerVariants = {
 }
 
 
+// adjustments being made to make the searchbar transition smoother
+const containerTransition = {type: 'spring', damping: 22, stiffness: 150}
 
  
 export function RevampedSearchBar(props){
 
     // function to handle expanded state of searchbar
     const [isExpanded, setExpanded] = useState(false);
+    
+    // this is useClickOutside
+    const [parentRef, isClickedOutside] = useClickOutside();
+
+    // need to create a reference to the value contained within the searchbar
+    // by storing this, we can clear this value using the collapseContainer function
+    const inputRef = useRef();
 
     // expand container
     const expandContainer = () => {
@@ -89,16 +101,31 @@ export function RevampedSearchBar(props){
     // collapse container
     const collapseContainer = () => {
         setExpanded(false);
+        if(inputRef.current)
+            inputRef.current.value = "";
     }
+
+    // add a UseEffect for useClickOutside
+    useEffect(() => {
+        if (isClickedOutside) collapseContainer();
+    }, [isClickedOutside])
 
     // core layout
     return  (
-        <motion.div style={SearchBarContainerStyle} animate={isExpanded ? "expanded" : "collapsed"} variants={containerVariants}>   
-
+        <motion.div 
+        style={SearchBarContainerStyle} 
+        animate={isExpanded ? "expanded" : "collapsed"} 
+        variants={containerVariants}
+        transition={containerTransition}   
+        ref={parentRef}
+        >
             <div style={SearchInputContainerStyle} onFocus={expandContainer}>
                 <SearchIcon style={SearchIconStyle}/>
-                <input style={SearchInputStyle} placeholder="Search for a track name, we'll do the rest!"/>
-                <CloseIcon style={CloseIconStyle}/>
+                <input 
+                    style={SearchInputStyle} 
+                    placeholder="Search for a track name, we'll do the rest!"
+                    ref={inputRef}/>
+                <CloseIcon style={CloseIconStyle} onClick={collapseContainer}/>
             </div>
         </motion.div>
     )}
