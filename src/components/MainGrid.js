@@ -121,21 +121,24 @@ const renderArtistDescriptionTooltip = props => (
       .then(tracksResponse => {
         // console.log(tracksResponse.data);
 
-        // console.log(tracksResponse.data.artists[0].name);
+        console.log('Artist is: ', tracksResponse.data.artists[0].name);
         // console.log(tracksResponse.data.name);
         // console.log(tracksResponse.data.available_markets);
         setTrackData({...trackData,
           trackArtist: tracksResponse.data.artists[0].name,
           trackTitle: tracksResponse.data.name,
           trackDistribution: tracksResponse.data.available_markets
-        })
-      });
+        });
+        getAllArtistDescriptionMS(tracksResponse.data.artists[0].name);
+
+        
+      })
       
     });
 
-    getAllArtistDescriptionMS(trackData.trackArtist);
+    
 
-  }, [spotify.ClientId, spotify.ClientSecret]); 
+  }, [spotify.ClientId, spotify.ClientSecret, trackData.trackID]); 
   
 
 
@@ -146,7 +149,7 @@ const renderArtistDescriptionTooltip = props => (
 
   // getTrackDetails();
 
-  const [artistDescriptionMS, getArtistDescriptionMS] = useState('');
+  const [artistDescriptionMS, getArtistDescriptionMS] = useState('No artist description available.');
 
   // var artist_description_ms = '';
 
@@ -172,6 +175,8 @@ const renderArtistDescriptionTooltip = props => (
       console.log('received result from Kristina microservice:', allArtistDescriptionMS);
       getArtistDescriptionMS(allArtistDescriptionMS);
     })
+
+    // if we get an error, handle the case where the microservice server didn't respond.
     .catch(error => console.error('Error', error));
   }
 
@@ -273,8 +278,6 @@ const renderArtistDescriptionTooltip = props => (
     <Item>
     <Collapsible open="true" trigger="Artist Description">
       <Typography>{artistDescriptionMS}</Typography>
-      <p>{ms_artist_desc}</p>
-      <button onClick={() => set_ms_artist_desc('updated')}>Click</button>
     </Collapsible>
     </Item>
     </OverlayTrigger>
