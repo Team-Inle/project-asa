@@ -79,44 +79,44 @@ const App = () => {
   
   
 
-  const NewSearch = props => {
+  // const NewSearch = props => {
 
-    const dropdownChanged = e => {
-      props.changed(e.target.value);
+  //   const dropdownChanged = e => {
+  //     props.changed(e.target.value);
 
-  } 
+  // } 
 
 
-    const [searchParam, setSearchParam] = useState();
+  //   const [searchParam, setSearchParam] = useState();
 
-    function updateSearchParam(e){
-      setSearchParam(e.target.value);
+  //   function updateSearchParam(e){
+  //     setSearchParam(e.target.value);
 
-      // pass the search parameter to the searchParamRequeste 
+  //     // pass the search parameter to the searchParamRequeste 
       
-    }
+  //   }
 
-    return(
+  //   return(
       
-      <Card >
-      <Card.Img variant="top"  />
-      <Card.Body>
-        <Card.Text>
+  //     <Card >
+  //     <Card.Img variant="top"  />
+  //     <Card.Body>
+  //       <Card.Text>
 
 
-                  <label>searchParam</label> <input type="text" name="currentSearchParam" value={searchParam} onChange={updateSearchParam}></input>
+  //                 <label>searchParam</label> <input type="text" name="currentSearchParam" value={searchParam} onChange={updateSearchParam}></input>
                   
-                  <p>searchParam is {searchParam}</p>      
+  //                 <p>searchParam is {searchParam}</p>      
 
-                    <div className="row">
-                                    <Listbox items={tracks.listOfTracksFromAPI} clicked={listboxClicked}  />
-                        {trackDetail && <Detail {...trackDetail} /> }
-                      </div>     
-        </Card.Text>
-      </Card.Body>
-    </Card>
-    )
-  }
+  //                   <div className="row">
+  //                                   <Listbox items={tracks.listOfTracksFromAPI} clicked={listboxClicked}  />
+  //                       {trackDetail && <Detail {...trackDetail} /> }
+  //                     </div>     
+  //       </Card.Text>
+  //     </Card.Body>
+  //   </Card>
+  //   )
+  // }
 
   
 
@@ -274,7 +274,7 @@ const App = () => {
         <Navbar />
 
         
-  );
+  
 
         
         <Switch>
@@ -282,35 +282,7 @@ const App = () => {
           <Route exact path="/">
           <div className="container">
             <RevampedSearchBar placeholderText="Test"/>
-         
-    <NewSearch/>
-        
-
-<form onSubmit={searchRequested}>
-  {/* <SearchBar label="Search" searchValue={searchValue} changed={searchValue} />        */}
-    {/* <Dropdown label="Genre :" options={genres.listOfGenresFromAPI} selectedValue={genres.selectedGenre} changed={genreChanged} /> */}
-    {/* <Dropdown label="Playlist :" options={playlist.listOfPlaylistFromAPI} selectedValue={playlist.selectedPlaylist} changed={playlistChanged} /> */}
-    <Input
-      placeholder="Searches for a track name, we'll do the rest!"
-      // enterButton="Search"
-      size="large"
-      onChange={value => this.getSearchResults(value.target.value)}
-      // onChange={searchParamChanged}
-      onChange={value => console.log(value.target.value)}
-      onSearch={value => console.log(value)}
-    />
-    <div className="col-sm-12 row form-group px-0 pl-3">
-      <button type='submit' className="btn btn-success col-sm-12">
-        Search
-      </button>
-    </div>
-    <div className="row">
-                  <Listbox items={tracks.listOfTracksFromAPI} clicked={listboxClicked}  />
-      {trackDetail && <Detail {...trackDetail} /> }
-    </div>        
-</form>
-
-</div>
+        </div>
 
            </Route>
 
