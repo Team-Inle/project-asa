@@ -42,19 +42,24 @@ function Navbar() {
 
 
 const renderSettingsTooltip = props => (
-  <Tooltip {...props}>Click to open advanced settings</Tooltip>
+  <Tooltip {...props}>Advanced Settings</Tooltip>
 );
 
+const renderTunescoutHomeTooltip = props => (
+  <Tooltip className="pl-3" {...props}>Home</Tooltip>
+);
 
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
         <nav className='navbar'>
           <div className='navbar-container container'>
+          <OverlayTrigger placement="right" overlay={renderTunescoutHomeTooltip}>
             <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
               <MdStream className='navbar-icon' />
               Tunescout
             </Link>
+            </OverlayTrigger>
             The only music search app you'll ever need
             <div className='menu-icon' onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}
