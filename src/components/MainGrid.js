@@ -228,6 +228,16 @@ const renderArtistDescriptionTooltip = props => (
 <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
   <Grid item xs={5}>
 
+  <OverlayTrigger placement="top" overlay={renderSpotifyEmebedTooltip}>
+              
+              <Item>
+              <Collapsible open="true" trigger="Track (Spotify)">
+                
+                <SpotifyEmbed embedId={id}/>
+          
+              </Collapsible>
+              </Item>
+                </OverlayTrigger>
 
     <OverlayTrigger placement="top" overlay={renderMusicVideoTooltip}>
               <Item>
@@ -238,16 +248,7 @@ const renderArtistDescriptionTooltip = props => (
       </OverlayTrigger>
 
     
-      <OverlayTrigger placement="top" overlay={renderSpotifyEmebedTooltip}>
-              
-    <Item>
-    <Collapsible open="true" trigger="Track (Spotify)">
-      
-      <SpotifyEmbed embedId={id}/>
 
-    </Collapsible>
-    </Item>
-      </OverlayTrigger>
 
 
       <OverlayTrigger placement="top" overlay={renderTrackAvailabilityTooltip}>

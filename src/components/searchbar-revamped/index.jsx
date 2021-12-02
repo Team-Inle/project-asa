@@ -23,6 +23,10 @@ import { useDebounce } from "../../hooks/debounceHook";
 import { Credentials } from '../Credentials';
 import { SearchBarResult } from "../searchbar-results";
 
+// load this so we can add hover tooltip on search results
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+
 // set this to access the spotify API
 const spotify = Credentials(); 
 
@@ -93,8 +97,7 @@ const searchResultStyle = {
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    padding: "1em",
-    hover: {backgroundColor:  "#d8d8d878"}
+    padding: "1em"
 }
 
 
@@ -185,6 +188,11 @@ export function RevampedSearchBar(props){
         if(inputRef.current)
             inputRef.current.value = "";
     }
+
+
+    const renderResultTooltip = props => (
+        <Tooltip className="pr-3" {...props}>Click to load track details</Tooltip>
+      );
 
     console.log("Value: ", searchQuery);
 
@@ -343,7 +351,9 @@ export function RevampedSearchBar(props){
                 {/* if not currently loading and there are results, show results */}
                 {!isLoading && !isNoResults && !isEmpty && <>
                  {trackResults.map((trackResult) => (
-       
+                     
+                     <OverlayTrigger placement="right" overlay={renderResultTooltip}>
+                     
                     <SearchBarResult style={searchResultStyle}
                         thumbnailSRC={trackResult.album.images[2] && trackResult.album.images[2].url}
                         trackName={trackResult.name}
@@ -352,6 +362,8 @@ export function RevampedSearchBar(props){
                         onClick={handleClick}
                         clicked={resultClicked}
                     />
+
+                    </OverlayTrigger>
 
                  ))}
                 </>}

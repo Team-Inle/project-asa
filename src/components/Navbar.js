@@ -18,6 +18,13 @@ function Navbar() {
 
   const [isOpen, setIsOpen] = React.useState(false);
 
+  const [isSpotifyEmbedEnabled, setIsSpotifyEmbedEnabled] = React.useState(true);
+  const [isYoutubeEmbedEnabled, setIsYoutubeEmbedEnabled] = React.useState(true);
+  const [isSpotifyMapEnabled, setIsSpotifyMapEnabled] = React.useState(true);
+  const [isYoutubeMapEnabled, setIsYoutubeMapEnabled] = React.useState(true);
+  const [isLyricsEnabled, setIsLyricsEnabled] = React.useState(true);
+  const [isArtistDescriptionEnabled, setIsArtistDescriptionEnabled] = React.useState(true);
+
   const showModal = () => {
     setIsOpen(true);
   };
