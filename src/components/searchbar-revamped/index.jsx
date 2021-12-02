@@ -278,8 +278,13 @@ export function RevampedSearchBar(props){
     // print out the record clicked
     const resultClicked = val => {
         const trackInfo = trackResults.filter(track => track.id === val);
-
+        
         console.log(trackInfo);
+    }
+
+    function handleClick(e) {
+        e.preventDefault();
+        console.log('the link was clicked');
     }
 
     // core layout
@@ -344,6 +349,7 @@ export function RevampedSearchBar(props){
                         trackName={trackResult.name}
                         artistName={trackResult.artists[0].name}
                         trackID={trackResult.id}
+                        onClick={handleClick}
                         clicked={resultClicked}
                     />
 

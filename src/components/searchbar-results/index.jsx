@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 const SearchBarResultStyle = {
     width: "100%",
@@ -32,10 +33,19 @@ export function SearchBarResult(props) {
     const { thumbnailSRC, trackName, artistName, trackID} = props;
 
     // layout of the result
+    const history = useHistory();
+
+    // add clickable result
+    const clicked = e => {
+        e.preventDefault();
+        props.clicked(trackID);
+        let path = `results/${trackID}`; 
+        history.push(path);
+    }
     
 
     return (
-        <div style={SearchBarResultStyle}>
+        <div style={SearchBarResultStyle} onClick={clicked}>
         <div style={ThumbnailStyle}>
             <img src={thumbnailSRC} />
         </div>
