@@ -26,6 +26,15 @@ function Navbar() {
   const [isLyricsEnabled, setIsLyricsEnabled] = React.useState(true);
   const [isArtistDescriptionEnabled, setIsArtistDescriptionEnabled] = React.useState(true);
 
+
+  const [isSpotifyEmbedCheckboxEnabled, setIsSpotifyEmbedCheckboxEnabled] = React.useState(true);
+  const [isYoutubeEmbedCheckboxEnabled, setIsYoutubeEmbedCheckboxEnabled] = React.useState(true);
+  const [isSpotifyMapCheckboxEnabled, setIsSpotifyMapCheckboxEnabled] = React.useState(true);
+  const [isYoutubeMapCheckboxEnabled, setIsYoutubeMapCheckboxEnabled] = React.useState(true);
+  const [isLyricsCheckboxEnabled, setIsLyricsCheckboxEnabled] = React.useState(true);
+  const [isArtistDescriptionCheckboxEnabled, setIsArtistDescriptionCheckboxEnabled] = React.useState(true);
+
+
   const showModal = () => {
     setIsOpen(true);
   };
@@ -50,6 +59,13 @@ function Navbar() {
   };
 
 const confirmConfirmModal = () => {
+  setIsSpotifyEmbedEnabled(isSpotifyEmbedCheckboxEnabled);
+setIsYoutubeEmbedEnabled(isYoutubeEmbedCheckboxEnabled);
+setIsSpotifyMapEnabled(isSpotifyMapCheckboxEnabled);
+setIsYoutubeMapEnabled(isYoutubeMapCheckboxEnabled);
+setIsLyricsEnabled(isLyricsCheckboxEnabled);
+setIsArtistDescriptionEnabled(isArtistDescriptionCheckboxEnabled);
+
   hideConfirmModal();
   hideModal();
 };
@@ -100,37 +116,37 @@ const renderTunescoutHomeTooltip = props => (
         <Modal.Body>
           Allow collapsed components:
   <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheck1"/>
+  <input class="form-check-input" type="checkbox"  value={setIsSpotifyEmbedCheckboxEnabled} id="flexCheck1"/>
   <label class="form-check-label" for="flexCheck1">
     Spotify Embed
   </label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheck2"/>
+  <input class="form-check-input" type="checkbox"  id="flexCheck2"/>
   <label class="form-check-label" for="flexCheck2">
     Youtube Video Embed
   </label>
   </div>
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheck3"/>
+  <input class="form-check-input" type="checkbox"  id="flexCheck3"/>
   <label class="form-check-label" for="flexCheck3">
     Spotify Track Availability Map
   </label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheck4"/>
+  <input class="form-check-input" type="checkbox"  id="flexCheck4"/>
   <label class="form-check-label" for="flexCheck4">
     Youtube Video Availability Map
   </label>
   </div>
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheck5"/>
+  <input class="form-check-input" type="checkbox"  id="flexCheck5"/>
   <label class="form-check-label" for="flexCheck5">
     Lyrics
   </label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheck6"/>
+  <input class="form-check-input" type="checkbox"  id="flexCheck6"/>
   <label class="form-check-label" for="flexCheck6">
     Artist Description
   </label>
