@@ -16,6 +16,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 
 function Navbar() {
 
+  const [isConfirmOpen, setIsConfirmOpen] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
 
   const [isSpotifyEmbedEnabled, setIsSpotifyEmbedEnabled] = React.useState(true);
@@ -32,6 +33,26 @@ function Navbar() {
   const hideModal = () => {
     setIsOpen(false);
   };
+
+  const showConfirmModal = () => {
+    setIsConfirmOpen(true);
+    hideModal();
+  };
+
+  const hideConfirmModal = () => {
+    setIsConfirmOpen(false);
+  };
+
+
+  const cancelConfirmModal = () => {
+    hideConfirmModal();
+    showModal();
+  };
+
+const confirmConfirmModal = () => {
+  hideConfirmModal();
+  hideModal();
+};
 
 
   const [click, setClick] = useState(false);
@@ -116,9 +137,24 @@ const renderTunescoutHomeTooltip = props => (
 </div></Modal.Body>
         <Modal.Footer>
           <button onClick={hideModal}>Cancel</button>
-          <button>Save</button>
+          <button onClick={showConfirmModal}>Save</button>
         </Modal.Footer>
       </Modal>
+
+      <Modal show={isConfirmOpen} onHide={hideConfirmModal}>
+        <Modal.Header>
+          <Modal.Title>Confirm Changes</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to update your settings?
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={cancelConfirmModal}>No, Cancel</button>
+          <button onClick={confirmConfirmModal}>Yes, Confirm</button>
+        </Modal.Footer>
+      </Modal>
+
+      
           </div>
         </nav>
       </IconContext.Provider>

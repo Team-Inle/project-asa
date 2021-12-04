@@ -181,29 +181,29 @@ const renderArtistDescriptionTooltip = props => (
               </Item>
                 </OverlayTrigger>
 
-    <OverlayTrigger placement="top" overlay={renderMusicVideoTooltip}>
+    {/* <OverlayTrigger placement="top" overlay={renderMusicVideoTooltip}>
               <Item>
                 <Collapsible open="true" trigger="Music Video" data-tip data-for="musicVideoCollapse">
             <YoutubeEmbed embedId="dQw4w9WgXcQ" />
           </Collapsible>
           </Item>
-      </OverlayTrigger>
+      </OverlayTrigger> */}
 
     
 
 
-
+{/* 
       <OverlayTrigger placement="top" overlay={renderTrackAvailabilityTooltip}>
     <Item>
     <Collapsible open="true" trigger="Track Availability (Spotify)">
     <MapChart/>
     </Collapsible>
     </Item>
-  </OverlayTrigger>
+  </OverlayTrigger> */}
 
   </Grid>
 
-  
+{/*   
   <OverlayTrigger placement="top" overlay={renderSongLyricsTooltip}>
   <Grid item xs={2}>
     <Item>
@@ -212,7 +212,7 @@ const renderArtistDescriptionTooltip = props => (
     </Collapsible>
     </Item>
   </Grid>
-  </OverlayTrigger>
+  </OverlayTrigger> */}
 
   <Grid item xs={5}>
 
@@ -225,14 +225,14 @@ const renderArtistDescriptionTooltip = props => (
     </Item>
     </OverlayTrigger>
 
-    <OverlayTrigger placement="top" overlay={renderMusicVideoAvailabilityTooltip}>
+    {/* <OverlayTrigger placement="top" overlay={renderMusicVideoAvailabilityTooltip}>
     <Item>
     <Collapsible open="true" trigger="Music Video Availability (Youtube)">
     <MapChart/>
     </Collapsible>
     </Item>
 
-    </OverlayTrigger>
+    </OverlayTrigger> */}
   </Grid>
   
   <Grid item xs={6}>

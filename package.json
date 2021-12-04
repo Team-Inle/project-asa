@@ -31,7 +31,8 @@
     "react-spinners": "^0.11.0",
     "react-tooltip": "^4.2.21",
     "styled-components": "^5.3.3",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "youtube-api": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

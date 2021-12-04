@@ -119,6 +119,7 @@ const App = () => {
            </Route>
 
           <Route path="/results/:id">
+            
           <AutoGrid/>
           </Route>
 
