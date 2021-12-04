@@ -11,11 +11,8 @@ import './components/Navbar.css';
 import "./components/YoutubeEmbed.css";
 
 
-// import RevampedSearchBar from './components/searchbar-revamped';
-
 import Navbar from './components/Navbar';
 import AutoGrid from './components/MainGrid';
-// import HomeSearchBar from './components/HomeSearchBar';
 
 
 import 'antd/dist/antd.css';
@@ -23,8 +20,6 @@ import 'antd/dist/antd.css';
 import Listbox from './components/Listbox';
 import Detail from './components/Detail';
 
-
-// import {searchRequested} from '../App';
 
 import './components/Navbar.css';
 
@@ -39,10 +34,6 @@ import { RevampedSearchBar } from './components/searchbar-revamped';
 const { Search } = Input;
 
 
-
-
-// Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
-// Modal.setAppElement('#SettingModal');
 const App = () => {
 
   const [constant, setDisplay] = useState(false);
@@ -66,59 +57,10 @@ const App = () => {
         });
         setOptions(tracks);
     }, []);
-
-
-  
     
 
   const spotify = Credentials();  
-
-  // console.log('RENDERING APP.JS');
-
-
-  
-  
-
-  // const NewSearch = props => {
-
-  //   const dropdownChanged = e => {
-  //     props.changed(e.target.value);
-
-  // } 
-
-
-  //   const [searchParam, setSearchParam] = useState();
-
-  //   function updateSearchParam(e){
-  //     setSearchParam(e.target.value);
-
-  //     // pass the search parameter to the searchParamRequeste 
-      
-  //   }
-
-  //   return(
-      
-  //     <Card >
-  //     <Card.Img variant="top"  />
-  //     <Card.Body>
-  //       <Card.Text>
-
-
-  //                 <label>searchParam</label> <input type="text" name="currentSearchParam" value={searchParam} onChange={updateSearchParam}></input>
-                  
-  //                 <p>searchParam is {searchParam}</p>      
-
-  //                   <div className="row">
-  //                                   <Listbox items={tracks.listOfTracksFromAPI} clicked={listboxClicked}  />
-  //                       {trackDetail && <Detail {...trackDetail} /> }
-  //                     </div>     
-  //       </Card.Text>
-  //     </Card.Body>
-  //   </Card>
-  //   )
-  // }
-
-  
+ 
 
   const [trackData, setTrackData] = useState({trackID:'', trackArtist:'', trackTitle:'', artistDescription:''});
 

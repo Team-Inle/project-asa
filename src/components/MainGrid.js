@@ -32,21 +32,11 @@ import MapChart from "./MapChart";
 
 import * as lyric_data from "../data/sample_lyrics.json"
 
-import "./MapChart.css"
-
 import "./MainGrid.css"
 
 import { styled } from '@mui/material/styles';
 
 const song_lyrics = lyric_data.lyrics;
-
-
-
-
-
-
-
-
 
 
 
@@ -60,10 +50,6 @@ const song_lyrics = lyric_data.lyrics;
 export default function AutoGridNoWrap() {
 
   
-  // Blue_Öyster_Cult
-
-
-
   const renderMusicVideoTooltip = props => (
     <Tooltip {...props}>Click to collapse/expand music video</Tooltip>
   );
@@ -119,11 +105,7 @@ const renderArtistDescriptionTooltip = props => (
         headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
       })
       .then(tracksResponse => {
-        // console.log(tracksResponse.data);
-
         console.log('Artist is: ', tracksResponse.data.artists[0].name);
-        // console.log(tracksResponse.data.name);
-        // console.log(tracksResponse.data.available_markets);
         setTrackData({...trackData,
           trackArtist: tracksResponse.data.artists[0].name,
           trackTitle: tracksResponse.data.name,
@@ -147,23 +129,7 @@ const renderArtistDescriptionTooltip = props => (
     setTrackData({...trackData,[e.target.name]:e.target.value})
   }
 
-  // getTrackDetails();
-
   const [artistDescriptionMS, getArtistDescriptionMS] = useState('No artist description available.');
-
-  // var artist_description_ms = '';
-
-  // useEffect(()=> {
-
-  //   if (trackData.trackArtist === "") {
-  //       console.log();
-  //   } else {
-
-  //   }
-
-  //   getAllArtistDescriptionMS(trackData.trackArtist);
-  // },  []);
-
 
   const getAllArtistDescriptionMS = (currentArtistName) => {
 
@@ -180,36 +146,12 @@ const renderArtistDescriptionTooltip = props => (
     .catch(error => console.error('Error', error));
   }
 
-  // Blue_Öyster_Cult
-
-
-
-  
-
-  // console.log(artist_description_ms);
-
-  // console.log(typeof(artist_description_ms));
 
   return (
 
     
 
     <div>
-      {/* <Item>
-        <label>TrackID</label> <input type="text" name="trackID" value={trackData.trackID} onChange={changeTrackData}></input>
-        <label>Artist</label> <input type="text" name="trackArtist" value={trackData.trackArtist} onChange={changeTrackData}></input>
-        <label>TrackTitle</label> <input type="text" name="trackTitle" value={trackData.trackTitle} onChange={changeTrackData}></input>
-        <label>ArtistDescription</label> <input type="text" name="artistDescription" value={trackData.artistDescription} onChange={changeTrackData}></input>
-
-
-        <p>
-          ID is {trackData.trackID}
-          Artist Name is {trackData.trackArtist}
-          Track Title is {trackData.trackTitle}
-          Artist Description is {trackData.artistDescription}
-          </p>
-    
-          </Item> */}
 
     <Box sx={{ flexGrow: 1, overflow: 'hidden', px: 3 }}>
 

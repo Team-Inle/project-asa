@@ -39,15 +39,6 @@ function Navbar() {
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
-//   useEffect(() => {
-//     showButton();
-//     window.addEventListener('resize', showButton);
-//     return {
-//       window.removeEventListener('resize', showButton);
-//     }
-//   }, []);
-
-
 const renderSettingsTooltip = props => (
   <Tooltip {...props}>Advanced Settings</Tooltip>
 );
